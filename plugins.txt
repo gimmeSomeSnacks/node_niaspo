@@ -1,0 +1,5 @@
+pipeline
+pipeline-stage-view
+pipeline-github-lib
+git
+nodejs
