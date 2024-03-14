@@ -1,10 +1,17 @@
-FROM couchbase/server:community
+FROM openjdk:11
 
-LABEL maintainer="n-tuganov@mail.ru"
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_VERSION 3.8.2
+ENV PATH $MAVEN_HOME/bin:$PATH
 
-ENV CB_USERNAME=admin
-ENV CB_PASSWORD=adminpassword
-ENV CB_BUCKET=default
-ENV CB_BUCKET_PASSWORD=bucketpassword
+RUN apt-get update \
+    && apt-get install -y maven \
+    && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 8101 8102 8103
+COPY . /usr/src/app
+
+WORKDIR /usr/src/app
+
+RUN mvn clean install
+
+CMD ["java", "-jar", "target/myapp.jar"]
