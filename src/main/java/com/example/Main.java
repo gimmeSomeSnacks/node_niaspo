@@ -1,4 +1,4 @@
-package ru.tuganov;
+package com.example;
 
 public class Main
 {
